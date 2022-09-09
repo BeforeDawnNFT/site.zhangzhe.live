@@ -1,13 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
+    <ConnectWallet></ConnectWallet>
   </div>
 </template>
 
 <script>
+import ConnectWallet from "@/components/ConnectWallet.vue";
+
 export default {
   name: 'App',
   components: {
+    ConnectWallet
   }
 }
 </script>
