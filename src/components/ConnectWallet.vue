@@ -1,6 +1,7 @@
 <template>
     <div>
         <b-button variant="success" @click="connectWallet()">Button</b-button>
+        <b-button variant="danger" @click="disconnectWallet()">Button</b-button>
     </div>
 </template>
 
@@ -14,27 +15,46 @@ export default {
     props: {
         msg: String,
     },
+    data() {
+        return {
+            web3: null,
+            web3Modal: null
+        }
+    },
+    created() {
+        this.web3Modal = this.createWeb3Modal();
+    },
     methods: {
-        async connectWallet() {
+        createWeb3Modal() {
             const providerOptions = {
                 walletconnect: {
                     package: WalletConnectProvider,
                     options: {
-                        infuraId: "c4335580538b43eaaff51310979903c8",
+                        infuraId: process.env.INFURA_ID,
                     },
                 },
             };
 
-            const web3Modal = new Web3Modal({
+            return new Web3Modal({
                 network: "mainnet",
                 cacheProvider: true,
                 providerOptions,
             });
-
-            const provider = await web3Modal.connect();
-            const web3 = new Web3(provider);
-            const accounts = await web3.eth.getAccounts();
+        },
+        async connectWallet() {
+            if (!this.web3Modal || !this.web3) {
+                this.web3Modal = this.createWeb3Modal();
+                const provider = await this.web3Modal.connect();
+                this.web3 = new Web3(provider);
+            }
+            const accounts = await this.web3.eth.getAccounts();
             console.log(accounts);
+        },
+        async disconnectWallet() {
+            if (!this.web3Modal || !this.web3) return;
+            await this.web3Modal.clearCachedProvider();
+            this.web3 = null;
+            this.web3Modal = null;
         },
     },
 };
