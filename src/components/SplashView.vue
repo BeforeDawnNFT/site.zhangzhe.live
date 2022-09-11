@@ -45,3 +45,14 @@
     font-weight: bold;
 }
 </style>
+
+<script>
+export default {
+    name: "SplashView",
+    methods: {
+        startGame() {
+            this.$router.push({ name: "GameView" });
+        }
+    }
+}
+</script>
