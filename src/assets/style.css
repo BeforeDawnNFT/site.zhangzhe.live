@@ -1,5 +1,10 @@
-html, body {
+html,
+body {
     background-color: #EEEEEE;
+}
+
+.content {
+    max-width: 640px;
 }
 
 .highlight-text {
