@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto content container text-center">
-    <img id="glass" class="my-3" src="@/assets/glass.png" />
+    <img style="max-width: 60%; width: 280px;" class="my-3" src="@/assets/glass.png" />
     <div class="my-4">
       <div class="row my-2">
         <div class="col" style="font-size: 1.5rem;">
@@ -49,13 +49,65 @@
         <p>3. 我们将有后续玩法于近日推出，敬请大家期待</p>
       </div>
     </div>
+
+    <b-modal id="game-end-modal" hide-footer hide-header no-close-on-esc no-close-on-backdrop>
+      <div class="p-3">
+        <div class="modal-card text-center p-4">
+
+          <h2>听我说续续你</h2>
+          <img style="max-width: 60%; width: 220px;" class="my-3" src="@/assets/glass.png" />
+
+          <div class="row">
+            <div class="col">
+              苟利国家生死以
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              岂因祸福避趋之
+            </div>
+          </div>
+
+          <div class="row my-3">
+            <div class="col">
+              您在 +1S 续续活动中<br />总共贡献了 <span class="highlight-text">{{ addedSeconds }}</span> 秒
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+              <h2>超越了 <span class="highlight-text">xxx%</span> 的参与者</h2>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <b-button variant="success" size="lg" @click="startGame()">连接钱包获得额外 10 秒续续！</b-button>
+            </div>
+          </div>
+
+          <img style="width: 80px;" class="mt-3" src="@/assets/qrcode.png" />
+          <div class="row mt-4">
+            <div class="col">
+              截图分享，一起帮长者续续！
+            </div>
+          </div>
+        </div>
+
+        <div class="mx-auto text-left p-2">
+          <div>1. 连接钱包后可获得额外 10 秒续续</div>
+          <div class="mt-2">2. <span class="highlight-text">续续总秒数排名靠前</span>的记者们, 将会有高概率于近期获得<span class="highlight-text">长者系列 NFT
+              空投</span> (请密切关注twitter: <a target="_blank" href="https://google.com">zhangzhe.live</a>)</div>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
   
 <style scoped>
-#glass {
-  max-width: 60%;
-  width: 280px;
+.modal-card {
+  border: 2px solid;
+  border-radius: 10px;
 }
 </style>
     
@@ -90,6 +142,10 @@ export default {
           return;
         }
         this.gameTimeLeft -= 10;
+
+        if (this.gameTimeLeft <= 0) {
+          this.onGameEnd();
+        }
       }, 10);
     },
     addSeconds() {
@@ -97,6 +153,9 @@ export default {
         return;
       }
       this.addedSeconds++;
+    },
+    onGameEnd() {
+      this.$bvModal.show('game-end-modal');
     }
   },
   computed: {
