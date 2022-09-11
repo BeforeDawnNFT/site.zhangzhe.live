@@ -1,9 +1,23 @@
 <template>
     <div>
-        <b-button variant="success" @click="connectWallet()">Button</b-button>
-        <b-button variant="danger" @click="disconnectWallet()">Button</b-button>
+        <div class="connect-wallet" @click="connectWallet()">连接钱包</div>
     </div>
 </template>
+
+<style scoped>
+.connect-wallet {
+    width: fit-content;
+    height: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
 
 <script>
 import Web3 from "web3";
@@ -17,12 +31,14 @@ export default {
     },
     data() {
         return {
+            // account,
             web3: null,
             web3Modal: null
         }
     },
     created() {
         this.web3Modal = this.createWeb3Modal();
+        
     },
     methods: {
         createWeb3Modal() {
