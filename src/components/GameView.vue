@@ -96,7 +96,8 @@
 
         <div class="mx-auto text-left p-2">
           <div>1. 连接钱包后可获得额外 10 秒续续</div>
-          <div class="mt-2">2. <span class="highlight-text">续续总秒数排名靠前</span>的记者们, 将会有高概率于近期获得<span class="highlight-text">长者系列 NFT
+          <div class="mt-2">2. <span class="highlight-text">续续总秒数排名靠前</span>的记者们, 将会有高概率于近期获得<span
+              class="highlight-text">长者系列 NFT
               空投</span> (请密切关注twitter: <a target="_blank" href="https://google.com">zhangzhe.live</a>)</div>
         </div>
       </div>
@@ -112,6 +113,8 @@
 </style>
     
 <script>
+import { getScore, setScore } from '@/local';
+
 export default {
   name: 'GameView',
   components: {
@@ -124,6 +127,20 @@ export default {
       gameStartTimeout: 3,
       gameTimeLeft: 3000,
       gameStart: false,
+    }
+  },
+  created() {
+    const score = getScore();
+    console.log(score);
+    if (Number.isInteger(score)) {
+      this.addedSeconds = score;
+      this.gameStartTimeout = 0;
+      this.gameTimeLeft = 0;
+      this.gameStart = true;
+      setTimeout(() => {
+        this.$bvModal.show('game-end-modal');
+      }, 500);
+      return;
     }
   },
   methods: {
@@ -155,6 +172,7 @@ export default {
       this.addedSeconds++;
     },
     onGameEnd() {
+      setScore(this.addedSeconds);
       this.$bvModal.show('game-end-modal');
     }
   },
