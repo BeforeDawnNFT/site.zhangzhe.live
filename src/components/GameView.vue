@@ -242,26 +242,31 @@ export default {
       return this.totalSeconds - this.year * this.constants.yearSeconds - this.month * this.constants.monthSeconds - this.day * this.constants.daySeconds - this.hour * this.constants.hourSeconds - this.minute * this.constants.minSeconds;
     },
     percentage() {
+      const formatter = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+
       if (this.totalScores <= 10) {
-        return 10;
+        return formatter.format(10 + Math.random() * 20);
       }
       if (this.totalScores > 10 && this.totalScores <= 30) {
-        return 30;
+        return formatter.format(30 + Math.random() * 20);
       }
       if (this.totalScores > 30 && this.totalScores <= 60) {
-        return 50;
+        return formatter.format(50 + Math.random() * 20);
       }
       if (this.totalScores > 60 && this.totalScores <= 80) {
-        return 70;
+        return formatter.format(70 + Math.random() * 20);
       }
       if (this.totalScores > 80 && this.totalScores <= 90) {
-        return 90;
+        return formatter.format(90 + Math.random() * 5);
       }
       if (this.totalScores > 90 && this.totalScores <= 100) {
-        return 95;
+        return formatter.format(95 + Math.random() * 4);
       }
       if (this.totalScores > 100) {
-        return 99;
+        return formatter.format(99 + + Math.random());
       }
       return 0;
     },
