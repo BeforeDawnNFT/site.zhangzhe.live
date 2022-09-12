@@ -76,7 +76,7 @@
 
           <div class="row mt-4">
             <div class="col">
-              <h2>超越了 <span class="highlight-text">xxx%</span> 的参与者</h2>
+              <h2>超越了 <span class="highlight-text">{{ percentage }}%</span> 的参与者</h2>
             </div>
           </div>
 
@@ -233,6 +233,30 @@ export default {
     },
     second() {
       return this.totalSeconds - this.year * this.constants.yearSeconds - this.month * this.constants.monthSeconds - this.day * this.constants.daySeconds - this.hour * this.constants.hourSeconds - this.minute * this.constants.minSeconds;
+    },
+    percentage() {
+      if (this.totalScores <= 10) {
+        return 10;
+      }
+      if (this.totalScores > 10 && this.totalScores <= 30) {
+        return 30;
+      }
+      if (this.totalScores > 30 && this.totalScores <= 60) {
+        return 50;
+      }
+      if (this.totalScores > 60 && this.totalScores <= 80) {
+        return 70;
+      }
+      if (this.totalScores > 80 && this.totalScores <= 90) {
+        return 90;
+      }
+      if (this.totalScores > 90 && this.totalScores <= 100) {
+        return 95;
+      }
+      if (this.totalScores > 100) {
+        return 99;
+      }
+      return 0;
     },
     gameButtonDisabled() {
       return !this.gameStart || this.gameTimeLeft <= 0 || this.gameStartTimeout > 0;
