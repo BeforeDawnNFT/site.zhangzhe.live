@@ -11,4 +11,12 @@ function getScore() {
     return score * 1;
 }
 
-export { setScore, getScore };
+function setWallet(wallet) {
+    localStorage.setItem("wallet", wallet);
+}
+
+function getWallet() {
+    return localStorage.getItem("wallet");
+}
+
+export { setScore, getScore, setWallet, getWallet };
