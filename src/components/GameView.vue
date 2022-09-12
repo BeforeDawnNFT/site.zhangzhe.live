@@ -70,7 +70,7 @@
 
           <div class="row my-3">
             <div class="col">
-              您在 +1S 续续活动中<br />总共贡献了 <span class="highlight-text">{{ addedSeconds }}</span> 秒
+              您在 +1S 续续活动中<br />总共贡献了 <span class="highlight-text">{{ totalScores }}</span> 秒
             </div>
           </div>
 
@@ -82,7 +82,8 @@
 
           <div class="row mt-3">
             <div class="col">
-              <b-button variant="success" size="lg" @click="connectWalletNow()">连接钱包获得额外 10 秒续续！</b-button>
+              <b-button variant="success" size="lg" v-if="showConnectWallet" @click="connectWalletNow()">连接钱包获得额外 10
+                秒续续！</b-button>
             </div>
           </div>
 
@@ -113,7 +114,7 @@
 </style>
     
 <script>
-import { getScore, setScore, setWallet } from '@/local';
+import { getScore, setScore, getWalletScore, setWalletScore, setWallet, getWallet } from '@/local';
 import { connectWallet } from '@/connectWallet';
 
 export default {
@@ -125,6 +126,7 @@ export default {
     return {
       totalSeconds: 0,
       addedSeconds: 0,
+      totalScores: 0,
       gameStartTimeout: 3,
       gameTimeLeft: 3000,
       gameStart: false,
@@ -132,8 +134,10 @@ export default {
   },
   created() {
     const score = getScore();
-    if (Number.isInteger(score)) {
-      this.addedSeconds = score;
+    const walletScore = getWalletScore();
+    const totalScore = score + walletScore;
+    if ((score > 0 && walletScore > 0) || (score > 0 && walletScore === 0 && !getWallet())) {
+      this.totalScores = totalScore;
       this.gameStartTimeout = 0;
       this.gameTimeLeft = 0;
       this.gameStart = true;
@@ -146,15 +150,21 @@ export default {
   methods: {
     startGame() {
       this.gameStart = true;
-      this.gameStartTimeout = 3;
-      this.gameTimeLeft = 3000;
-      setInterval(() => {
+      this.addedSeconds = 0;
+      if (getWallet()) {
+        this.gameStartTimeout = 3;
+        this.gameTimeLeft = 10000;
+      } else {
+        this.gameStartTimeout = 3;
+        this.gameTimeLeft = 3000;
+      }
+      const timer1 = setInterval(() => {
         if (!this.gameStart || this.gameStartTimeout <= 0) {
           return;
         }
         this.gameStartTimeout -= 1;
       }, 1000);
-      setInterval(() => {
+      const timer2 = setInterval(() => {
         if (!this.gameStart || this.gameTimeLeft <= 0 || this.gameStartTimeout > 0) {
           return;
         }
@@ -162,6 +172,8 @@ export default {
 
         if (this.gameTimeLeft <= 0) {
           this.onGameEnd();
+          clearInterval(timer1);
+          clearInterval(timer2);
         }
       }, 10);
     },
@@ -172,7 +184,14 @@ export default {
       this.addedSeconds++;
     },
     onGameEnd() {
-      setScore(this.addedSeconds);
+      if (getWallet()) {
+        setWalletScore(this.addedSeconds);
+      } else {
+        setScore(this.addedSeconds);
+      }
+      const score = getScore();
+      const walletScore = getWalletScore();
+      this.totalScores = score + walletScore;
       this.$bvModal.show('game-end-modal');
     },
     async connectWalletNow() {
@@ -184,6 +203,7 @@ export default {
       if (account) {
         setWallet(account);
         this.$bvModal.hide('game-end-modal');
+        this.startGame();
       }
     }
   },
@@ -222,6 +242,9 @@ export default {
         return `倒计时 ${this.gameStartTimeout} 秒后开始`;
       }
       return "+1s!";
+    },
+    showConnectWallet() {
+      return getWallet() === null;
     }
   }
 }
