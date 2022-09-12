@@ -130,6 +130,7 @@ export default {
       gameStartTimeout: 3,
       gameTimeLeft: 3000,
       gameStart: false,
+      showConnectWallet: true,
     }
   },
   created() {
@@ -141,6 +142,9 @@ export default {
       this.gameStartTimeout = 0;
       this.gameTimeLeft = 0;
       this.gameStart = true;
+      if (getWallet()) {
+        this.showConnectWallet = false;
+      }
       setTimeout(() => {
         this.$bvModal.show('game-end-modal');
       }, 500);
@@ -192,6 +196,9 @@ export default {
       const score = getScore();
       const walletScore = getWalletScore();
       this.totalScores = score + walletScore;
+      if (getWallet()) {
+        this.showConnectWallet = false;
+      }
       this.$bvModal.show('game-end-modal');
     },
     async connectWalletNow() {
@@ -267,9 +274,6 @@ export default {
       }
       return "+1s!";
     },
-    showConnectWallet() {
-      return getWallet() === null;
-    }
   }
 }
 </script>
