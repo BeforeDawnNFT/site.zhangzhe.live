@@ -1,5 +1,4 @@
 function setScore(score) {
-    console.log("set");
     localStorage.setItem("score", score);
 }
 

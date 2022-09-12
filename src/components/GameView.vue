@@ -82,7 +82,7 @@
 
           <div class="row mt-3">
             <div class="col">
-              <b-button variant="success" size="lg" @click="startGame()">连接钱包获得额外 10 秒续续！</b-button>
+              <b-button variant="success" size="lg" @click="connectWalletNow()">连接钱包获得额外 10 秒续续！</b-button>
             </div>
           </div>
 
@@ -113,7 +113,8 @@
 </style>
     
 <script>
-import { getScore, setScore } from '@/local';
+import { getScore, setScore, setWallet } from '@/local';
+import { connectWallet } from '@/connectWallet';
 
 export default {
   name: 'GameView',
@@ -131,7 +132,6 @@ export default {
   },
   created() {
     const score = getScore();
-    console.log(score);
     if (Number.isInteger(score)) {
       this.addedSeconds = score;
       this.gameStartTimeout = 0;
@@ -174,6 +174,17 @@ export default {
     onGameEnd() {
       setScore(this.addedSeconds);
       this.$bvModal.show('game-end-modal');
+    },
+    async connectWalletNow() {
+      const accounts = await connectWallet();
+      let account = null;
+      if (accounts && accounts.length > 0) {
+        account = accounts[0];
+      }
+      if (account) {
+        setWallet(account);
+        this.$bvModal.hide('game-end-modal');
+      }
     }
   },
   computed: {
