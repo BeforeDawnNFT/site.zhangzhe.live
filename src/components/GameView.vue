@@ -199,6 +199,11 @@ export default {
       const score = getScore();
       const walletScore = getWalletScore();
       this.totalScores = score + walletScore;
+      axios.post("https://zhangzheseconds.theandytrue.workers.dev/", {
+        addedSeconds: this.totalScores,
+      }).then(resp => {
+        this.totalSeconds = resp.data.totalSeconds;
+      }).catch(err => console.error(err));
       if (getWallet()) {
         this.showConnectWallet = false;
       }
