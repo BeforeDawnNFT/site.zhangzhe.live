@@ -114,6 +114,7 @@
 </style>
     
 <script>
+import axios from 'axios';
 import { getScore, setScore, getWalletScore, setWalletScore, setWallet, getWallet } from '@/local';
 import { connectWallet } from '@/connectWallet';
 
@@ -134,6 +135,8 @@ export default {
     }
   },
   created() {
+    axios.get("https://zhangzheseconds.theandytrue.workers.dev/").then(resp => this.totalSeconds = resp.data.totalSeconds);
+
     const score = getScore();
     const walletScore = getWalletScore();
     const totalScore = score + walletScore;
