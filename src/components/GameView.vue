@@ -201,6 +201,7 @@ export default {
       this.totalScores = score + walletScore;
       axios.post("https://zhangzheseconds.theandytrue.workers.dev/", {
         addedSeconds: this.totalScores,
+        walletAddress: getWallet(),
       }).then(resp => {
         this.totalSeconds = resp.data.totalSeconds;
       }).catch(err => console.error(err));
