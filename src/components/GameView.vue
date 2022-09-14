@@ -45,13 +45,13 @@
       <div class="mx-auto text-left p-2">
         <p>1. 同年出生的女皇已经离开, 我们衷心希望 96 岁高龄的长者能一直坚挺下去: 请大家帮我们一起祈福</p>
         <p>2. <span class="highlight-text">续续总秒数排名靠前</span>的记者们, 将会有高概率于近期获得<span class="highlight-text">长者系列 NFT
-            空投</span> (请密切关注twitter: <a target="_blank" href="https://google.com">zhangzhe.live</a>)</p>
+            空投</span> (请密切关注twitter: <a target="_blank" href="https://twitter.com/zhangzhe_live">zhangzhe.live</a>)</p>
         <p>3. 我们将有后续玩法于近日推出，敬请大家期待</p>
       </div>
     </div>
 
     <b-modal id="game-end-modal" hide-footer hide-header no-close-on-esc no-close-on-backdrop>
-      <div class="p-3">
+      <div id="modal-content" class="p-3">
         <div class="modal-card text-center p-4">
 
           <h2>听我说续续你</h2>
@@ -90,7 +90,7 @@
           <img style="width: 80px;" class="mt-3" src="@/assets/qrcode.png" />
           <div class="row mt-4">
             <div class="col">
-              截图分享，一起帮长者续续！
+              <a id="modal-img-link">点击保存分享卡片, 一起帮长者续续!</a>
             </div>
           </div>
         </div>
@@ -123,6 +123,7 @@
 import axios from 'axios';
 import { getScore, setScore, getWalletScore, setWalletScore, setWallet, getWallet } from '@/local';
 import { connectWallet } from '@/connectWallet';
+import html2canvas from 'html2canvas';
 
 export default {
   name: 'GameView',
@@ -155,12 +156,23 @@ export default {
         this.showConnectWallet = false;
       }
       setTimeout(() => {
-        this.$bvModal.show('game-end-modal');
+        this.showModal();
       }, 500);
       return;
     }
   },
   methods: {
+    showModal() {
+      this.$bvModal.show('game-end-modal');
+      setTimeout(() => {
+        html2canvas(document.querySelector("#modal-content")).then(canvas => {
+          const img = canvas.toDataURL("image/png");
+          const link = document.querySelector("#modal-img-link");
+          link.download = '续续你.png';
+          link.href = img;
+        });
+      }, 1000);
+    },
     startGame() {
       this.gameStart = true;
       this.addedSeconds = 0;
@@ -214,7 +226,7 @@ export default {
       if (getWallet()) {
         this.showConnectWallet = false;
       }
-      this.$bvModal.show('game-end-modal');
+      this.showModal();
     },
     async connectWalletNow() {
       this.$bvModal.hide('game-end-modal');
@@ -229,7 +241,7 @@ export default {
           this.startGame();
         }
       } catch {
-        this.$bvModal.show('game-end-modal');
+        this.showModal();
       }
     }
   },
