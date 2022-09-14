@@ -87,10 +87,17 @@
             </div>
           </div>
 
-          <img style="width: 80px;" class="mt-3" src="@/assets/qrcode.png" />
+          <div>
+            <img style="width: 80px;" class="mt-3" src="@/assets/qrcode.png" />
+          </div>
+
+          <div>
+            <img style="width: 80px;" class="mt-3" id="modal-img" />
+          </div>
+
           <div class="row mt-4">
             <div class="col">
-              <a id="modal-img-link">点击保存分享卡片, 一起帮长者续续!</a>
+              长按保存分享卡片, 一起帮长者续续!
             </div>
           </div>
         </div>
@@ -165,11 +172,12 @@ export default {
     showModal() {
       this.$bvModal.show('game-end-modal');
       setTimeout(() => {
+        const link = document.querySelector("#modal-img");
+        link.src = "";
         html2canvas(document.querySelector("#modal-content")).then(canvas => {
           const img = canvas.toDataURL("image/png");
-          const link = document.querySelector("#modal-img-link");
-          link.download = '续续你.png';
-          link.href = img;
+          const link = document.querySelector("#modal-img");
+          link.src = img;
         });
       }, 1000);
     },
