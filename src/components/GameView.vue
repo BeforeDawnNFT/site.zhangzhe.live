@@ -100,7 +100,7 @@
               token</span></div>
           <div class="mt-2">2. 续续总秒数排名越高, 获得<span class="highlight-text">长者NFT空投</span>概率越高 (请密切关注twitter: <a
               target="_blank" href="https://twitter.com/zhangzhe_live">zhangzhe_live</a>)</div>
-          <div class="mt-2">3. 分享置顶<span class="highlight-text">tweet</span>并 @3 位好友, 将有<span
+          <div class="mt-2">3. 分享置顶 <span class="highlight-text">tweet</span> 并 @3 位好友, 将有<span
               class="highlight-text">翻倍几率</span>获得长者NFT空投和NAIV token<span class="highlight-text">翻倍空投</span></div>
         </div>
       </div>
