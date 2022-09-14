@@ -11,3 +11,7 @@ body {
     color: #EFB90B;
     font-weight: bold;
 }
+
+input[type="button"] {
+    touch-action: manipulation;
+}
