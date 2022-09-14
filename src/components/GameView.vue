@@ -217,6 +217,7 @@ export default {
       this.$bvModal.show('game-end-modal');
     },
     async connectWalletNow() {
+      this.$bvModal.hide('game-end-modal');
       const accounts = await connectWallet();
       let account = null;
       if (accounts && accounts.length > 0) {
@@ -224,7 +225,6 @@ export default {
       }
       if (account) {
         setWallet(account);
-        this.$bvModal.hide('game-end-modal');
         this.startGame();
       }
     }
