@@ -218,14 +218,18 @@ export default {
     },
     async connectWalletNow() {
       this.$bvModal.hide('game-end-modal');
-      const accounts = await connectWallet();
-      let account = null;
-      if (accounts && accounts.length > 0) {
-        account = accounts[0];
-      }
-      if (account) {
-        setWallet(account);
-        this.startGame();
+      try {
+        const accounts = await connectWallet();
+        let account = null;
+        if (accounts && accounts.length > 0) {
+          account = accounts[0];
+        }
+        if (account) {
+          setWallet(account);
+          this.startGame();
+        }
+      } catch {
+        this.$bvModal.show('game-end-modal');
       }
     }
   },
