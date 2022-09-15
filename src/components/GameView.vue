@@ -45,68 +45,73 @@
       <div class="mx-auto text-left p-2">
         <p>1. 同年出生的女皇已经离开, 我们衷心希望 96 岁高龄的长者能一直坚挺下去: 请大家帮我们一起祈福</p>
         <p>2. <span class="highlight-text">续续总秒数排名靠前</span>的记者们, 将会有高概率于近期获得<span class="highlight-text">长者系列 NFT
-            空投</span> (请密切关注<span style="color: #55ACEE; font-weight: bold;">twitter: <a target="_blank" href="https://twitter.com/zhangzhe_live">zhangzhe.live</a></span>)</p>
+            空投</span> (请密切关注<span style="color: #55ACEE; font-weight: bold;">twitter: <a target="_blank"
+              href="https://twitter.com/zhangzhe_live">zhangzhe.live</a></span>)</p>
         <p>3. 我们将有后续玩法于近日推出，敬请大家期待</p>
       </div>
     </div>
 
-    <b-modal id="game-end-modal" hide-footer hide-header no-close-on-esc no-close-on-backdrop>
-      <div id="modal-content" class="p-3">
-        <div class="modal-card text-center p-4">
+    <b-modal id="game-end-modal" hide-footer hide-header no-close-on-esc no-close-on-backdrop size="md">
+      <div id="modal-content">
+        <div id="modal-card" class="text-center p-2" style="width: 469px; height: 645px;" v-if="showCard">
+          <div class="modal-card h-100 w-100">
 
-          <h2>听我说续续你</h2>
-          <img style="max-width: 60%; width: 220px;" class="my-3" src="@/assets/glass.png" />
+            <h2 class="mt-4">听我说续续你</h2>
+            <img style="max-width: 60%; width: 220px;" class="my-3" src="@/assets/glass.png" />
 
-          <div class="row">
-            <div class="col">
-              苟利国家生死以
+            <div class="row">
+              <div class="col">
+                苟利国家生死以
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                岂因祸福避趋之
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col">
+                您在 +1S 续续活动中<br />总共贡献了 <span class="highlight-text">{{ totalScores }}</span> 秒
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col">
+                <h2>超越了 <span class="highlight-text">{{ percentage }} %</span> 的参与者</h2>
+              </div>
+            </div>
+
+            <div>
+              <img style="width: 80px;" class="mt-3" src="@/assets/qrcode.png" />
+            </div>
+
+            <div class="row mt-4">
+              <div class="col">
+                长按保存分享卡片, 一起帮长者续续!
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
-              岂因祸福避趋之
-            </div>
-          </div>
+        </div>
 
-          <div class="row my-3">
-            <div class="col">
-              您在 +1S 续续活动中<br />总共贡献了 <span class="highlight-text">{{ totalScores }}</span> 秒
-            </div>
-          </div>
 
-          <div class="row mt-4">
-            <div class="col">
-              <h2>超越了 <span class="highlight-text">{{ percentage }}%</span> 的参与者</h2>
-            </div>
-          </div>
+        <div class="text-center w-100">
+          <img id="modal-img" class="w-100" />
+        </div>
 
-          <div class="row mt-3">
-            <div class="col">
-              <b-button variant="success" size="lg" v-if="showConnectWallet" @click="connectWalletNow()">连接钱包获得额外 10
-                秒续续！</b-button>
-            </div>
-          </div>
-
-          <div>
-            <img style="width: 80px;" class="mt-3" src="@/assets/qrcode.png" />
-          </div>
-
-          <div>
-            <img style="width: 80px;" class="mt-3" id="modal-img" />
-          </div>
-
-          <div class="row mt-4">
-            <div class="col">
-              长按保存分享卡片, 一起帮长者续续!
-            </div>
+        <div class="row my-3 text-center" v-if="showConnectWallet">
+          <div class="col">
+            <b-button variant="success" size="lg" @click="connectWalletNow()">连接钱包获得额外 10
+              秒续续！</b-button>
           </div>
         </div>
 
         <div class="mx-auto text-left p-2">
           <div>1. 连接钱包后可获得额外<span class="highlight-text">10秒续续</span>, 并且会在近期按你续续总秒数<span class="highlight-text">空投NAIV
               token</span></div>
-          <div class="mt-2">2. 续续总秒数排名越高, 获得<span class="highlight-text">长者NFT空投</span>概率越高 (请密切关注<span style="color: #55ACEE; font-weight: bold;">twitter: <a
-              target="_blank" href="https://twitter.com/zhangzhe_live">zhangzhe_live</a></span>)</div>
+          <div class="mt-2">2. 续续总秒数排名越高, 获得<span class="highlight-text">长者NFT空投</span>概率越高 (请密切关注<span
+              style="color: #55ACEE; font-weight: bold;">twitter: <a target="_blank"
+                href="https://twitter.com/zhangzhe_live">zhangzhe_live</a></span>)</div>
           <div class="mt-2">3. 分享置顶 <span class="highlight-text">tweet</span> 并 @3 位好友, 将有<span
               class="highlight-text">翻倍几率</span>获得长者NFT空投和NAIV token<span class="highlight-text">翻倍空投</span></div>
         </div>
@@ -146,6 +151,7 @@ export default {
       gameTimeLeft: 3000,
       gameStart: false,
       showConnectWallet: true,
+      showCard: true
     }
   },
   created() {
@@ -170,11 +176,13 @@ export default {
   },
   methods: {
     showModal() {
+      this.showCard = true;
       this.$bvModal.show('game-end-modal');
       setTimeout(() => {
         const link = document.querySelector("#modal-img");
         link.src = "";
-        html2canvas(document.querySelector("#modal-content")).then(canvas => {
+        html2canvas(document.querySelector("#modal-card")).then(canvas => {
+          this.showCard = false;
           const img = canvas.toDataURL("image/png");
           const link = document.querySelector("#modal-img");
           link.src = img;
