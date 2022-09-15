@@ -297,27 +297,46 @@ export default {
         maximumFractionDigits: 2,
       });
 
-      if (this.totalScores <= 10) {
-        return formatter.format(10 + Math.random() * 20);
+      if (!getWallet()) {
+        if (this.totalScores <= 10) {
+          return formatter.format(0 + Math.random() * 30);
+        }
+        if (this.totalScores > 10 && this.totalScores <= 15) {
+          return formatter.format(30 + Math.random() * 30);
+        }
+        if (this.totalScores > 15 && this.totalScores <= 20) {
+          return formatter.format(60 + Math.random() * 15);
+        }
+        if (this.totalScores > 20 && this.totalScores <= 25) {
+          return formatter.format(75 + Math.random() * 5);
+        }
+        if (this.totalScores > 25) {
+          return formatter.format(80 + + Math.random() * 5);
+        }
+      } else {
+        if (this.totalScores <= 10) {
+          return formatter.format(10 + Math.random() * 20);
+        }
+        if (this.totalScores > 10 && this.totalScores <= 30) {
+          return formatter.format(30 + Math.random() * 20);
+        }
+        if (this.totalScores > 30 && this.totalScores <= 60) {
+          return formatter.format(50 + Math.random() * 20);
+        }
+        if (this.totalScores > 60 && this.totalScores <= 80) {
+          return formatter.format(70 + Math.random() * 20);
+        }
+        if (this.totalScores > 80 && this.totalScores <= 90) {
+          return formatter.format(90 + Math.random() * 5);
+        }
+        if (this.totalScores > 90 && this.totalScores <= 100) {
+          return formatter.format(95 + Math.random() * 4);
+        }
+        if (this.totalScores > 100) {
+          return formatter.format(99 + + Math.random());
+        }
       }
-      if (this.totalScores > 10 && this.totalScores <= 30) {
-        return formatter.format(30 + Math.random() * 20);
-      }
-      if (this.totalScores > 30 && this.totalScores <= 60) {
-        return formatter.format(50 + Math.random() * 20);
-      }
-      if (this.totalScores > 60 && this.totalScores <= 80) {
-        return formatter.format(70 + Math.random() * 20);
-      }
-      if (this.totalScores > 80 && this.totalScores <= 90) {
-        return formatter.format(90 + Math.random() * 5);
-      }
-      if (this.totalScores > 90 && this.totalScores <= 100) {
-        return formatter.format(95 + Math.random() * 4);
-      }
-      if (this.totalScores > 100) {
-        return formatter.format(99 + + Math.random());
-      }
+
       return 0;
     },
     gameButtonDisabled() {
