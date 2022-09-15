@@ -45,7 +45,7 @@
       <div class="mx-auto text-left p-2">
         <p>1. 同年出生的女皇已经离开, 我们衷心希望 96 岁高龄的长者能一直坚挺下去: 请大家帮我们一起祈福</p>
         <p>2. <span class="highlight-text">续续总秒数排名靠前</span>的记者们, 将会有高概率于近期获得<span class="highlight-text">长者系列 NFT
-            空投</span> (请密切关注twitter: <a target="_blank" href="https://twitter.com/zhangzhe_live">zhangzhe.live</a>)</p>
+            空投</span> (请密切关注<span style="color: #55ACEE; font-weight: bold;">twitter: <a target="_blank" href="https://twitter.com/zhangzhe_live">zhangzhe.live</a></span>)</p>
         <p>3. 我们将有后续玩法于近日推出，敬请大家期待</p>
       </div>
     </div>
@@ -105,8 +105,8 @@
         <div class="mx-auto text-left p-2">
           <div>1. 连接钱包后可获得额外<span class="highlight-text">10秒续续</span>, 并且会在近期按你续续总秒数<span class="highlight-text">空投NAIV
               token</span></div>
-          <div class="mt-2">2. 续续总秒数排名越高, 获得<span class="highlight-text">长者NFT空投</span>概率越高 (请密切关注twitter: <a
-              target="_blank" href="https://twitter.com/zhangzhe_live">zhangzhe_live</a>)</div>
+          <div class="mt-2">2. 续续总秒数排名越高, 获得<span class="highlight-text">长者NFT空投</span>概率越高 (请密切关注<span style="color: #55ACEE; font-weight: bold;">twitter: <a
+              target="_blank" href="https://twitter.com/zhangzhe_live">zhangzhe_live</a></span>)</div>
           <div class="mt-2">3. 分享置顶 <span class="highlight-text">tweet</span> 并 @3 位好友, 将有<span
               class="highlight-text">翻倍几率</span>获得长者NFT空投和NAIV token<span class="highlight-text">翻倍空投</span></div>
         </div>
