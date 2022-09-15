@@ -212,14 +212,14 @@ export default {
         if (!this.gameStart || this.gameTimeLeft <= 0 || this.gameStartTimeout > 0) {
           return;
         }
-        this.gameTimeLeft -= 10;
+        this.gameTimeLeft -= 200;
 
         if (this.gameTimeLeft <= 0) {
           this.onGameEnd();
           clearInterval(timer1);
           clearInterval(timer2);
         }
-      }, 10);
+      }, 200);
     },
     addSeconds() {
       if (!this.gameStart || this.gameTimeLeft <= 0 || this.gameStartTimeout > 0) {
