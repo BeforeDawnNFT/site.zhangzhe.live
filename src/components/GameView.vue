@@ -78,12 +78,15 @@
 
             <div class="row mt-4">
               <div class="col">
-                <h2>超越了 <span class="highlight-text">{{ percentage }} %</span> 的参与者</h2>
+                <h2>超越了 <span class="highlight-text"><span class="mr-1">{{ percentage }}</span>%</span> 的参与者</h2>
               </div>
             </div>
 
             <div>
               <img style="width: 80px;" class="mt-3" src="@/assets/qrcode.png" />
+            </div>
+            <div>
+              <a style="font-weight: bold;" href="https://zhangzhe.live">zhangzhe.live</a>
             </div>
 
             <div class="row mt-4">
